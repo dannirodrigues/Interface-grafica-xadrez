@@ -9,7 +9,7 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
 	
 
 	if ((get_linha_atual() -1 == pos_final_i && get_coluna_atual() == pos_final_j )|| ( get_linha_atual() -1 == pos_final_i && get_coluna_atual()+1 == pos_final_j )|| (get_linha_atual() -1 == pos_final_i && get_coluna_atual()-1 == pos_final_j)){
-            tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
+            if(tabuleiro->getMatriz(pos_final_i, pos_final_j) !=nullptr) tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
             tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(get_linha_atual(), get_coluna_atual()));
 			tabuleiro->setMatriz(get_linha_atual(), get_coluna_atual(), nullptr);
 			inicializa_posicao(pos_final_i, pos_final_j);
@@ -18,7 +18,7 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
 	}
 
 	if ((get_linha_atual() +1 == pos_final_i && get_coluna_atual()+1 == pos_final_j ) || (get_linha_atual() +1 == pos_final_i && get_coluna_atual() == pos_final_j) || (get_linha_atual() +1 == pos_final_i && get_coluna_atual()-1 == pos_final_j)){
-            tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
+            if(tabuleiro->getMatriz(pos_final_i, pos_final_j) !=nullptr) tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
             tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(get_linha_atual(), get_coluna_atual()));
 			tabuleiro->setMatriz(get_linha_atual(), get_coluna_atual(), nullptr);
 			inicializa_posicao(pos_final_i, pos_final_j);
@@ -27,7 +27,7 @@ bool Rei::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabuleir
 	}
 
 	if ((get_linha_atual() == pos_final_i && get_coluna_atual()+1 == pos_final_j ) || (get_linha_atual() == pos_final_i && get_coluna_atual()-1 == pos_final_j) ){
-            tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
+            if(tabuleiro->getMatriz(pos_final_i, pos_final_j) !=nullptr) tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
             tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(get_linha_atual(), get_coluna_atual()));
 			tabuleiro->setMatriz(get_linha_atual(), get_coluna_atual(), nullptr);
 			inicializa_posicao(pos_final_i, pos_final_j);

@@ -10,7 +10,7 @@ using namespace std;
 std::string switch_char_string(char letra);
 int switch_para_numero(char numero);
 int switch_para_letra(char letra);
-bool decodifica_main(Tabuleiro *t, string jogadas_times, int posicao);
+int decodifica_main(Tabuleiro *t, string jogadas_times, int posicao);
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -62,13 +62,23 @@ void MainWindow::_update_view_size() {
 
 void MainWindow::on_button_clicked() {
 
-    //ui->label->setText(QString("%0").arg(cont));
-    decodifica_main(this->_tabuleiro, ui->set->text().toStdString(), cont);
+    if( cont == -1 ) ui->label->setText(QString("%0").arg("Inicio de Jogo. Começa Pelo time Branco."));
+    bool retorno = decodifica_main(this->_tabuleiro, ui->set->text().toStdString(), cont);
+    if( retorno == 0 && cont != -1 )
+    {
+        ui->label->setText(QString("%0").arg("Jogada Invalida! Tente Novamente."));
+        cont--;
+    }
+    std::cout << retorno << std::endl;
     cont++;
-    //ui->label->setText(QString("%0").arg(cont));
+
+    if ( cont%2 == 0 && retorno == 1 && cont != -1 ) ui->label->setText(QString("%0").arg("Vez do time Branco!"));
+    else if ( cont%2 != 0 && retorno == 1 && cont != -1 ) ui->label->setText(QString("%0").arg("Vez do time Preto!"));
+
+
 }
 
-bool decodifica_main(Tabuleiro *t, string jogadas_times, int posicao)
+int decodifica_main(Tabuleiro *t, string jogadas_times, int posicao)
 {
     char cor_time;
     if(posicao%2 == 0) cor_time = 'B';
@@ -88,10 +98,10 @@ bool decodifica_main(Tabuleiro *t, string jogadas_times, int posicao)
 
             if(!t->jogada(peca, linha, coluna, jogada_atual))
             {
-                std::cout << "Jogada Invalida" << std::endl;
-                return false;
+                //std::cout << "Jogada Invalida" << std::endl;
+                return 0;
             }
-            return true;
+            else return 1;
         }
 
         else if(jogada_atual.size() == 4) //movimentacao seguida de comida de peca
@@ -103,11 +113,13 @@ bool decodifica_main(Tabuleiro *t, string jogadas_times, int posicao)
 
             if(!t->jogada(peca, linha, coluna, jogada_atual))
             {
-                std::cout << "Jogada Invalida" << std::endl;
-                return false;
+                //std::cout << "Jogada Invalida" << std::endl;
+                return 0;
             }
-            return true;
+            else return 1;
         }
+
+        else return 0;
     }
 
     //caso seja minuscula sera as pecas restantes
@@ -123,17 +135,42 @@ bool decodifica_main(Tabuleiro *t, string jogadas_times, int posicao)
             if(!t->jogada(peca, linha, coluna, jogada_atual))
             {
                 peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
-                if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
+                if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) return 0;
                 if(!t->jogada(peca, linha, coluna, jogada_atual))
                 {
                     std::cout << "Jogada Invalida" << std::endl;
-                    return false;
+                    return 0;
                 }
                 cout << peca << " " << linha << " " << coluna << endl;
-                return true;
+                return 1;
             }
             cout << peca << " " << linha << " " << coluna << endl;
+            return 1;
         }
+
+
+        /*if(jogada_atual.size() == 3) //apenas movimentacao para cavalos
+        {
+            string peca = switch_char_string(jogada_atual[0]) + std::string("1") + cor_time;
+            if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
+            int linha = switch_para_numero(jogada_atual[2]);
+            int coluna = switch_para_letra(jogada_atual[1]);
+
+            cout << peca << " " << linha << " " << coluna << endl;
+            if(!t->jogada(peca, linha, coluna, jogada_atual))
+            {
+                cout << "entro" << endl;
+                return 0;
+            }
+
+            else
+            {
+                cout << "entro2" << endl;
+                peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
+                if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
+                return 1;
+            }
+        }*/
 
         if(jogada_atual.size() == 4) //apenas movimentacao para cavalos
         {
@@ -142,23 +179,24 @@ bool decodifica_main(Tabuleiro *t, string jogadas_times, int posicao)
             int linha = switch_para_numero(jogada_atual[3]);
             int coluna = switch_para_letra(jogada_atual[2]);
 
+            cout << peca << " " << linha << " " << coluna << endl;
             if(!t->jogada(peca, linha, coluna, jogada_atual))
+            {
+                return 0;
+            }
+
+            else
             {
                 peca = switch_char_string(jogada_atual[0]) + std::string("2") + cor_time;
                 if(jogada_atual[0] == 'R' || jogada_atual[0] == 'D' ) peca = switch_char_string(jogada_atual[0]) + cor_time;
-                if(!t->jogada(peca, linha, coluna, jogada_atual))
-                {
-                    std::cout << "Jogada Invalida" << std::endl;
-                    return false;
-                }
-                cout << peca << " " << linha << " " << coluna << endl;
-                return true;
+                else return 1;
             }
-            cout << peca << " " << linha << " " << coluna << endl;
         }
+
+        else return 0;
     }
 
-    else return false;
+    else return 0;
 }
 
 

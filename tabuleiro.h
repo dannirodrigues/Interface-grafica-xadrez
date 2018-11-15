@@ -135,12 +135,13 @@ public:
 						if( abs(linha_final- _peoes_brancos[numero].get_linha_atual()) == 2 ) _peoes_brancos[numero].set_duas_vezes_true();
    	  					else _peoes_brancos[numero].set_duas_vezes_false();
 
-                        getMatriz(linha_final, coluna_final)->removeItem();
 						setMatriz(linha_final, coluna_final, getMatriz(_peoes_brancos[numero].get_linha_atual(), _peoes_brancos[numero].get_coluna_atual()));
             			setMatriz(_peoes_brancos[numero].get_linha_atual(), _peoes_brancos[numero].get_coluna_atual(), nullptr);
+                        getMatriz(_peoes_pretos[numero_anterior].get_linha_atual(), _peoes_pretos[numero_anterior].get_coluna_atual())->removeItem();
             			setMatriz(_peoes_pretos[numero_anterior].get_linha_atual(), _peoes_pretos[numero_anterior].get_coluna_atual(), nullptr);
             			_peoes_brancos[numero].inicializa_posicao(linha_final, coluna_final);
-           				_peoes_brancos[numero].incremento_nJogadas();            
+                        _peoes_brancos[numero].incremento_nJogadas();
+
 						return true;
 					}
 
@@ -153,14 +154,15 @@ public:
 					if(_peoes_brancos[coluna_peca_anterior].get_linha_atual() == 4 && linha_final-1 == 4) //caso estejam na linha 5 do xadrez
 					{
 						if( abs(linha_final- _peoes_pretos[numero].get_linha_atual()) == 2 ) _peoes_pretos[numero].set_duas_vezes_true();
-   	  					else _peoes_pretos[numero].set_duas_vezes_false();
+   	  					else _peoes_pretos[numero].set_duas_vezes_false();                       
 
-                        getMatriz(linha_final, coluna_final)->removeItem();
 						setMatriz(linha_final, coluna_final, getMatriz(_peoes_pretos[numero].get_linha_atual(), _peoes_pretos[numero].get_coluna_atual()));
             			setMatriz(_peoes_pretos[numero].get_linha_atual(), _peoes_pretos[numero].get_coluna_atual(), nullptr);
+                        getMatriz(_peoes_brancos[numero_anterior].get_linha_atual(), _peoes_brancos[numero_anterior].get_coluna_atual())->removeItem();
             			setMatriz(_peoes_brancos[numero_anterior].get_linha_atual(), _peoes_brancos[numero_anterior].get_coluna_atual(), nullptr);
             			_peoes_pretos[numero].inicializa_posicao(linha_final, coluna_final);
-           				_peoes_pretos[numero].incremento_nJogadas();            
+                        _peoes_pretos[numero].incremento_nJogadas();
+
 						return true;
 					}
 

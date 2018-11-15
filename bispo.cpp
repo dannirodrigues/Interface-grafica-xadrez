@@ -13,7 +13,7 @@ bool Bispo::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabule
 			//conferindo se tem alguma peca para capturar
 			if(peca_no_caminho(get_linha_atual(),get_coluna_atual(), pos_final_i, pos_final_j, tabuleiro) == 0)
 			{
-                tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
+                if(tabuleiro->getMatriz(pos_final_i, pos_final_j) !=nullptr) tabuleiro->getMatriz(pos_final_i, pos_final_j)->removeItem();
 				tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(get_linha_atual(), get_coluna_atual()));
 				tabuleiro->setMatriz(get_linha_atual(), get_coluna_atual(), nullptr);
 				inicializa_posicao(pos_final_i, pos_final_j);

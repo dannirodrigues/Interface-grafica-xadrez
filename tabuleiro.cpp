@@ -183,9 +183,9 @@ bool Tabuleiro::jogada(const std::string& nome_peca, int pos_i_final, int pos_j_
 		}
 	}
 
-    peca->verifica_jogada(pos_i_final, pos_j_final, this);
+    if( peca->verifica_jogada(pos_i_final, pos_j_final, this) == true ) return true;
 
-	return false;
+    else return false;
 }
 
 // ROQUE MAIOR E ROQUE MENOR

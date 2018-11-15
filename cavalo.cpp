@@ -12,7 +12,7 @@ bool Cavalo::verifica_jogada( int pos_final_i, int pos_final_j, Tabuleiro *tabul
         tabuleiro->setMatriz(pos_final_i, pos_final_j, tabuleiro->getMatriz(get_linha_atual(), get_coluna_atual()));
 		tabuleiro->setMatriz(get_linha_atual(), get_coluna_atual(), nullptr);
 		inicializa_posicao(pos_final_i, pos_final_j);
-      return true;
+        return true;
    }
    return false;
 }
