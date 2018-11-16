@@ -35,8 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
         std::cout << "Jogada Invalida!" << std::endl;
     }*/
 
-    ui->graphicsView->scale(400/ui->graphicsView->scene()->width(),
-                            350/ui->graphicsView->scene()->height());
+    ui->graphicsView->scale(810/ui->graphicsView->scene()->width(),
+                            810/ui->graphicsView->scene()->height());
 
     on_button_clicked();
 }
